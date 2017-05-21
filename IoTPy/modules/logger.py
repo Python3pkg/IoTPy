@@ -2,6 +2,6 @@ import logging
 
 
 def log(x, filename):
-    print x
+    print(x)
     logging.basicConfig(filename=filename, level=logging.DEBUG)
     logging.info(str(x))

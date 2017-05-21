@@ -1,4 +1,4 @@
-from make_part_from_source import make_part_from_source
+from .make_part_from_source import make_part_from_source
 
 
 def assemble(params):

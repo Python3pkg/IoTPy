@@ -34,7 +34,7 @@ class StdOutListener(StreamListener):
         try:
             data_json = json.loads(data)
             text = data_json['text']
-            if data_json['place']['bounding_box'] and 'retweeted_status' not in data_json.keys():
+            if data_json['place']['bounding_box'] and 'retweeted_status' not in list(data_json.keys()):
                 if data_json['place']['country'] == 'United States':
                     location = np.array(
                         data_json['place']['bounding_box']['coordinates'])
@@ -47,7 +47,7 @@ class StdOutListener(StreamListener):
         return True
 
     def on_error(self, status):
-        print status
+        print(status)
 
 
 def plot(x, y, model, state):
@@ -127,10 +127,10 @@ def train_function(x, y, model, window_state):
 
         trainfeats = negfeats[:negcutoff] + posfeats[:poscutoff]
         testfeats = negfeats[negcutoff:] + posfeats[poscutoff:]
-        print 'train on %d instances, test on %d instances' % (len(trainfeats), len(testfeats))
+        print('train on %d instances, test on %d instances' % (len(trainfeats), len(testfeats)))
 
         classifier = NaiveBayesClassifier.train(trainfeats)
-        print 'accuracy:', nltk.classify.util.accuracy(classifier, testfeats)
+        print('accuracy:', nltk.classify.util.accuracy(classifier, testfeats))
 
         return classifier
 
@@ -152,14 +152,14 @@ def predict_function(tweet, y, classifier):
     """
 
     tweet = tweet[0]
-    print "--------------------------------------------------------------------------------"
-    print "Tweet: ", tweet
+    print("--------------------------------------------------------------------------------")
+    print("Tweet: ", tweet)
     sentiment = classifier.classify(word_feats(tweet.split()))
     if sentiment == 'pos':
         sentiment_r = "Positive"
     elif sentiment == 'neg':
         sentiment_r = "Negative"
-    print "Sentiment: ", sentiment_r
+    print("Sentiment: ", sentiment_r)
 
 
 def word_feats(words):

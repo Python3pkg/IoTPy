@@ -24,7 +24,7 @@ def run(name, template_name, module_name, dict_parts, queues):
     args_dict = get_template(template_name)
     IoTPy.tools.component.Component(
         name, template_name, module_name, dict_parts)
-    print "Sink for {0}".format(name)
+    print("Sink for {0}".format(name))
     sink(queues, args_dict["outputs"], dict_parts)
 
     queue = queues[name]

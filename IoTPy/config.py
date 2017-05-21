@@ -1,5 +1,5 @@
 import os
-import ConfigParser
+import configparser
 import shutil
 
 filename = os.path.join(os.path.expanduser("~"), ".iotpy", "config.ini")
@@ -10,7 +10,7 @@ if not os.path.isfile(filename):
     source = os.path.join(os.path.dirname(__file__), "config.ini")
     shutil.copy(source, filename)
 
-Config = ConfigParser.ConfigParser()
+Config = configparser.ConfigParser()
 Config.read(filename)
 
 

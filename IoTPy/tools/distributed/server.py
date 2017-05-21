@@ -27,10 +27,10 @@ def run(host="localhost", user="guest", password="guest"):
 
     """
 
-    print "Listening on " + host
+    print("Listening on " + host)
     connection = pika.BlockingConnection(pika.URLParameters(
         "amqp://{0}:{1}@{2}/%2f".format(user, password, host)))
-    print "Connected as " + user
+    print("Connected as " + user)
     channel = connection.channel()
 
     channel.queue_declare(queue="assemble")
@@ -65,7 +65,7 @@ def start(body, host, user, password):
     body = jsonpickle.decode(body)
     exchange, name, template_name, module_name, dict_parts = body
 
-    print "Starting: " + name
+    print("Starting: " + name)
     IoTPy.tools.component.Component(
         name, template_name, module_name, dict_parts)
 

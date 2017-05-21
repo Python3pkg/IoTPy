@@ -4,7 +4,7 @@ of PythonStreams.
 (Version 1.0 June 16, 2016. Created by: Mani Chandy)
 """
 
-from system_parameters import DEFAULT_NUM_IN_MEMORY,\
+from .system_parameters import DEFAULT_NUM_IN_MEMORY,\
                              DEFAULT_MIN_HISTORY
 # Import numpy and pandas if StreamArray (numpy) and StreamSeries (Pandas)
 # are used.
@@ -586,7 +586,7 @@ class Stream(object):
         self.stop += len(value_list)
         # Inform subscribers that the stream has been modified.
         for a in self.subscribers_set:
-            a.next()
+            next(a)
 
         # Close the stream if close_flag was set to True
         # because a close_message value was added to the stream.
@@ -597,7 +597,7 @@ class Stream(object):
         self.name = name
 
     def print_recent(self):
-        print self.name, '=', self.recent[:self.stop]
+        print(self.name, '=', self.recent[:self.stop])
 
     def close(self):
         """
@@ -676,9 +676,9 @@ class Stream(object):
             else:
                 return self.recent[start_index:self.stop]
         except:
-            print 'Error In Stream.py. In get_contents_after_column_value()'
-            print 'column_number =', column_number
-            print 'value =', value
+            print('Error In Stream.py. In get_contents_after_column_value()')
+            print('column_number =', column_number)
+            print('value =', value)
             raise
         return
 
@@ -697,9 +697,9 @@ class Stream(object):
             else:
                 return start_index
         except:
-            print 'Error in get_index_for_column_value in Stream.py'
-            print 'column_number =', column_number
-            print 'value =', value
+            print('Error in get_index_for_column_value in Stream.py')
+            print('column_number =', column_number)
+            print('value =', value)
             raise
         return
 
@@ -722,11 +722,11 @@ class Stream(object):
             new_stop = self.stop
         else:
             if new_stop < self.stop:
-                print 'Error in Stream.py. In set_up_new_recent'
-                print 'new_stop', new_stop, 'self.stop', self.stop
+                print('Error in Stream.py. In set_up_new_recent')
+                print('new_stop', new_stop, 'self.stop', self.stop)
 
         self._begin = (0 if self.start == {}
-                       else min(self.start.itervalues()))
+                       else min(self.start.values()))
         num_items_active_in_stream = new_stop - self._begin
 
         self.num_in_memory = len(self.recent)
@@ -760,11 +760,11 @@ class Stream(object):
         # A reader reading the value in slot l in the old recent
         # will now read the same value in slot (l - _begin) in
         # new_recent.
-        for key in self.start.iterkeys():
+        for key in self.start.keys():
             self.start[key] -= self._begin
         self.stop -= self._begin
         self._begin = (0 if self.start == {}
-                       else min(self.start.itervalues()))
+                       else min(self.start.values()))
         
 
     def _create_recent(self, size):
@@ -931,7 +931,7 @@ class StreamArray(Stream):
         self.recent[self.stop] = row
         self.stop += 1
         for a in self.subscribers_set:
-            a.next()
+            next(a)
 
 
     def extend(self, lst):
@@ -1015,7 +1015,7 @@ class StreamArray(Stream):
         self.recent[self.stop: self.stop + len(output_array)] = output_array
         self.stop += len(output_array)
         for subscriber in self.subscribers_set:
-            subscriber.next()
+            next(subscriber)
 
     def get_contents_after_time(self, start_time):
         try:
@@ -1025,8 +1025,8 @@ class StreamArray(Stream):
             else:
                 return self.recent[start_index:self.stop]
         except:
-            print 'start_time =', start_time
-            print 'self.dtype =', self.dtype
+            print('start_time =', start_time)
+            print('self.dtype =', self.dtype)
             raise
 
         return
@@ -1089,7 +1089,7 @@ def main():
     # Testing simple Stream
     u = Stream('u')
     v = Stream('v')
-    u.extend(range(4))
+    u.extend(list(range(4)))
     assert u.recent[:u.stop] == [0, 1, 2, 3]
     v.append(10)
     v.append([40, 50])
@@ -1263,11 +1263,11 @@ def main():
     assert(x.start == {'a':3, 'b':3})
 
     # Test doubling
-    x.extend(range(0, 320, 10))
+    x.extend(list(range(0, 320, 10)))
     assert(len(x.recent) == 64)
     assert(x.stop == 33)
     assert(x.recent[0] == 6)
-    assert(x.recent[1:33] == range(0, 320, 10))
+    assert(x.recent[1:33] == list(range(0, 320, 10)))
 
     #------------------------------------------
     # Test helper functions

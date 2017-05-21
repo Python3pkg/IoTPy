@@ -1,1 +1,1 @@
-from geomap import Geomap
+from .geomap import Geomap

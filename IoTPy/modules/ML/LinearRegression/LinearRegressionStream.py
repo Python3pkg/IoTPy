@@ -151,7 +151,7 @@ class LinearRegressionStream:
                     self.w = model.w
                 error = evaluate_error(x, y, model.w)
                 if self.output:
-                    print "Error: ", error
+                    print("Error: ", error)
 
                 model.sum_error += error
                 model.i += 1
@@ -173,7 +173,7 @@ class LinearRegressionStream:
                 self.w = model.w
                 error = evaluate_error(x, y, model.w)
                 if self.output:
-                    print "Error: ", error
+                    print("Error: ", error)
 
                 model.sum_error += error
                 model.i += 1
@@ -182,7 +182,7 @@ class LinearRegressionStream:
         def predict_function(x, y, model):
             self.avg_error = float(model.sum_error) / float(model.i)
             if self.output:
-                print "Average error: ", self.avg_error, "\n"
+                print("Average error: ", self.avg_error, "\n")
 
             X_array = np.array(x).reshape(1, len(x))
             y_array = np.array(y).reshape(1, len(y))

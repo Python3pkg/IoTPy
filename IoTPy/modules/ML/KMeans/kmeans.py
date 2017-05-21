@@ -46,7 +46,7 @@ def initializeCentroids(X, k):
         Numpy array with dimensions `k` by 2.
 
     """
-    index = random.sample(xrange(0, len(X)), k)
+    index = random.sample(range(0, len(X)), k)
     return X[index, :]
 
 
@@ -171,8 +171,8 @@ def kmeans(X, k, initial_centroids=None, draw=False, output=False, source=None):
 
         # Print number of points reassigned
         if num_iters != 0 and output:
-            print np.count_nonzero(index - previous_index),\
-                " data points changed color"
+            print(np.count_nonzero(index - previous_index),\
+                " data points changed color")
         previous_index = index
         if draw:
             plotKMeans(X, centroids, previous, index, source)
@@ -183,7 +183,7 @@ def kmeans(X, k, initial_centroids=None, draw=False, output=False, source=None):
         num_iters += 1
 
     if output:
-        print "Num iters: ", num_iters
+        print("Num iters: ", num_iters)
     return [centroids, index, num_iters]
 
 

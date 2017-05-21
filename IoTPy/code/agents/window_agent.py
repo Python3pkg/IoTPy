@@ -604,7 +604,7 @@ def test_window_agents():
     a = window_map_agent(
         func=sum, in_stream=r, out_stream=s, window_size=4, step_size=4,
         name='a')
-    r.extend(range(16))
+    r.extend(list(range(16)))
     assert s.stop == 4
     assert s.recent[:4] == [0+1+2+3, 4+5+6+7, 8+9+10+11, 12+13+14+15]
     
@@ -632,7 +632,7 @@ def test_window_agents():
         window_size=3, step_size=2, name='bb')
     assert tt.stop == 11
     assert tt.recent[:tt.stop] == [1, 3, 5, 7, 9, 11, 13, 13, 7, 0, 0]
-    r.extend(range(1,4,1))
+    r.extend(list(range(1,4,1)))
     assert tt.stop == 12
     assert tt.recent[:tt.stop] == [1, 3, 5, 7, 9, 11, 13, 13, 7, 0, 0, 1]
 
@@ -644,10 +644,10 @@ def test_window_agents():
     c = window_map_agent(
         func=f, in_stream=rr, out_stream=u, window_size=4, step_size=4, name='c')
     assert u.stop == 0
-    rr.extend(range(16))
+    rr.extend(list(range(16)))
     assert u.stop==4
     assert u.recent[:4] == [0+1+2+3+1, 4+5+6+7+1, 8+9+10+11+1, 12+13+14+15+1]
-    rr.extend(range(16, 21, 1))
+    rr.extend(list(range(16, 21, 1)))
     assert u.stop==5
     assert u.recent[:5] == [0+1+2+3+1, 4+5+6+7+1, 8+9+10+11+1, 12+13+14+15+1,
                             16+17+18+19+1]
@@ -661,11 +661,11 @@ def test_window_agents():
         func=g, in_stream=v_in, out_stream=v, window_size=4, step_size=4,
         state=0, name='d')
     assert v.stop == 0
-    v_in.extend(range(18))
+    v_in.extend(list(range(18)))
     assert v.stop==4
     assert v.recent[:4] == [0+1+2+3, 0+1+2+3+4+5+6+7, 0+1+2+3+4+5+6+7+8+9+10+11,
                             0+1+2+3+4+5+6+7+8+9+10+11+12+13+14+15]
-    v_in.extend(range(18, 22, 1))
+    v_in.extend(list(range(18, 22, 1)))
 
     #------------------------------
     # Test window merge agent
@@ -679,9 +679,9 @@ def test_window_agents():
         func=h, in_streams=[r,w], out_stream=x, window_size=3, step_size=3,
         name='e')
     assert x.stop == 0
-    w_prime.extend(range(16))
+    w_prime.extend(list(range(16)))
     assert x.stop == 0
-    w.extend(range(100, 140, 4))
+    w.extend(list(range(100, 140, 4)))
     assert x.stop == 3
     assert x.recent[:x.stop] == [315, 360, 405]
 
@@ -693,7 +693,7 @@ def test_window_agents():
         name='ee')
     assert y.stop == 3
     assert y.recent[:y.stop] == [110, 125, 140]
-    w.extend(range(140, 150, 4))
+    w.extend(list(range(140, 150, 4)))
     assert y.stop == 4
     assert y.recent[:y.stop] == [110, 125, 140, 155]
 
@@ -712,12 +712,12 @@ def test_window_agents():
         name='ff')
     assert w.stop == 0
     assert y.stop == 0
-    in_split.extend(range(16))
+    in_split.extend(list(range(16)))
     assert w.stop == 5
     assert y.stop == 5
     assert w.recent[:w.stop] == [3, 12, 21, 30, 39]
     assert y.recent[:y.stop] == [2, 5, 8, 11, 14]
-    in_split.extend(range(16, 20, 1))
+    in_split.extend(list(range(16, 20, 1)))
     assert w.recent[:w.stop] == [3, 12, 21, 30, 39, 48]
     assert y.recent[:y.stop] == [2, 5, 8, 11, 14, 17]
 
@@ -731,12 +731,12 @@ def test_window_agents():
         name='gg')
     assert ww.stop == 0
     assert yy.stop == 0
-    r_split_numpy.extend(range(16))
+    r_split_numpy.extend(list(range(16)))
     assert ww.stop == 5
     assert yy.stop == 5
     assert ww.recent[:ww.stop] == [3, 12, 21, 30, 39]
     assert yy.recent[:yy.stop] == [1, 4, 7, 10, 13]
-    r_split_numpy.extend(range(16, 24, 1))
+    r_split_numpy.extend(list(range(16, 24, 1)))
     assert ww.recent[:ww.stop] == [3, 12, 21, 30, 39, 48, 57, 66]
     assert yy.recent[:yy.stop] == [1, 4, 7, 10, 13, 16, 19, 22]
 
@@ -751,12 +751,12 @@ def test_window_agents():
         window_size=2, step_size=3,name='hh')
     assert zz.stop == 0
     assert aa.stop == 0
-    r_max_min_window.extend(range(16))
+    r_max_min_window.extend(list(range(16)))
     assert zz.stop == 5
     assert aa.stop == 5
     assert zz.recent[:zz.stop] == [1, 4, 7, 10, 13]
     assert aa.recent[:aa.stop] == [0, 3, 6, 9, 12]
-    r_max_min_window.extend(range(16, 20, 1))
+    r_max_min_window.extend(list(range(16, 20, 1)))
     assert zz.recent[:zz.stop] == [1, 4, 7, 10, 13, 16, 19]
     assert aa.recent[:aa.stop] == [0, 3, 6, 9, 12, 15, 18]
 
@@ -768,12 +768,12 @@ def test_window_agents():
         name='ii')
     assert bb.recent[:bb.stop] == []
     assert cc.recent[:cc.stop] == []
-    in_bb_cc.extend(range(16))
+    in_bb_cc.extend(list(range(16)))
     assert bb.stop == 4
     assert cc.stop == 4
     assert bb.recent[:bb.stop] == [4, 7, 10, 13]
     assert cc.recent[:cc.stop] == [0, 3, 6, 9]
-    in_bb_cc.extend(range(16, 20, 1))
+    in_bb_cc.extend(list(range(16, 20, 1)))
     assert bb.stop == 6
     assert cc.stop == 6
     assert bb.recent[:bb.stop] == [4, 7, 10, 13, 16, 19]
@@ -819,26 +819,26 @@ def test_window_agents():
     assert ddd.recent[:ddd.stop] == []
     assert eee.recent[:eee.stop] == []
 
-    many_dd_ee_0.extend(range(16))
+    many_dd_ee_0.extend(list(range(16)))
     assert dd.recent[:dd.stop] == []
     assert ee.recent[:ee.stop] == []
     assert ddd.recent[:ddd.stop] == []
     assert eee.recent[:eee.stop] == []
 
-    many_dd_ee_1.extend(range(100, 220, 10))
+    many_dd_ee_1.extend(list(range(100, 220, 10)))
     assert dd.recent[:dd.stop] == [910, 1260]
     assert ee.recent[:ee.stop] == [21, 56]
     assert ddd.recent[:ddd.stop] == [1820, 2520]
     assert eee.recent[:eee.stop] == [31, 66]
 
-    many_dd_ee_0.extend(range(16, 32, 1))
+    many_dd_ee_0.extend(list(range(16, 32, 1)))
     assert dd.recent[:dd.stop] == [910, 1260]
     assert ee.recent[:ee.stop] == [21, 56]
     assert ddd.recent[:ddd.stop] == [1820, 2520]
     assert eee.recent[:eee.stop] == [31, 66]
 
 
-    many_dd_ee_1.extend(range(220, 300, 10))
+    many_dd_ee_1.extend(list(range(220, 300, 10)))
     assert dd.recent[:dd.stop] == [910, 1260, 1610]
     assert ee.recent[:ee.stop] == [21, 56, 91]
     assert ddd.recent[:ddd.stop] == [1820, 2520, 3220]
@@ -855,18 +855,18 @@ def test_window_agents():
         name='rrr')
     assert many_out_2.stop == 0
     assert many_out_3.stop == 0
-    many_in_2.extend(range(4))
-    many_in_3.extend(range(10, 100, 10))
+    many_in_2.extend(list(range(4)))
+    many_in_3.extend(list(range(10, 100, 10)))
     assert many_out_2.stop == 1
     assert many_out_3.stop == 1
     assert many_out_2.recent[:many_out_2.stop] == [30]
     assert many_out_3.recent[:many_out_3.stop] == [1]
-    many_in_3.extend(range(100,200,10))
+    many_in_3.extend(list(range(100,200,10)))
     assert many_out_2.stop == 1
     assert many_out_3.stop == 1
     assert many_out_2.recent[:many_out_2.stop] == [30]
     assert many_out_3.recent[:many_out_3.stop] == [1]
-    many_in_2.extend(range(4, 10, 1))
+    many_in_2.extend(list(range(4, 10, 1)))
     assert many_out_2.stop == 2
     assert many_out_3.stop == 2
     assert many_out_2.recent[:many_out_2.stop] == [30, 130]
@@ -889,7 +889,7 @@ def test_window_agents():
         func=f_args, in_stream=rr, out_stream=sss, window_size=4, step_size=4,
         name='aaa', args=[10])
 
-    rr.extend(range(16))
+    rr.extend(list(range(16)))
     assert ss.recent[:ss.stop] == [6, 22, 38, 54]
     assert sss.recent[:sss.stop] == [60, 220, 380, 540]
 
@@ -910,7 +910,7 @@ def test_window_agents():
         window_size=4, step_size=4,
         name='aaa_kwargs', kwargs={'multiplicand':10})
 
-    rr_kwargs.extend(range(16))
+    rr_kwargs.extend(list(range(16)))
     assert sss_kwargs.recent[:sss_kwargs.stop] == [60, 220, 380, 540]
 
     rr_kwargs.append(20)
@@ -940,7 +940,7 @@ def test_window_agents():
     assert ss_args_kwargs.recent[:ss_args_kwargs.stop] == []
     assert sss_args_kwargs.recent[:sss_args_kwargs.stop] == []
     
-    rr_args_kwargs.extend(range(16))
+    rr_args_kwargs.extend(list(range(16)))
     assert ss_args_kwargs.recent[:ss_args_kwargs.stop] == [6, 22, 38, 54]
     assert sss_args_kwargs.recent[:sss_args_kwargs.stop] == [65, 225, 385, 545]
 

@@ -34,9 +34,9 @@ def source(exchange, name, dict_parts, host="localhost",
 
     def callback(ch, method, properties, body):
         body = jsonpickle.decode(body)
-        print "Received"
-        print body
-        print
+        print("Received")
+        print(body)
+        print()
 
         # No index
         if len(body) == 2:

@@ -129,7 +129,7 @@ def test_element_agents():
     # Test sink as a function with state
     sink(p_s, in_stream_sink_with_state, state=0,
          lst=c_list, stream_name='in_stream_sink_with_state')
-    in_stream_sink_with_state.extend(range(2))
+    in_stream_sink_with_state.extend(list(range(2)))
 
     # ------------------------------------
     # Test sink with side effect
@@ -162,7 +162,7 @@ def test_element_agents():
         name='sink_with_side_effect_agent_1',
         side_effect_list=side_effect_list_1, f=fff)
 
-    in_stream_sink_with_side_effect.extend(range(5))
+    in_stream_sink_with_side_effect.extend(list(range(5)))
 
     assert side_effect_list_0 == [0, 2, 4, 6, 8]
     assert side_effect_list_1 == [10, 11, 12, 13, 14]

@@ -28,7 +28,7 @@ def get_function(func_name, module_name):
     """
 
     # Func_name is a function
-    if not isinstance(func_name, basestring):
+    if not isinstance(func_name, str):
         return func_name
 
     modules = func_name.split(".")

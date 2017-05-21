@@ -234,9 +234,9 @@ def test_element_agent():
     # the output stream.
     def double(v): return 2*v
     a = element_map_agent(func=double, in_stream=x, out_stream=y, name='a')
-    x.extend(range(3))
+    x.extend(list(range(3)))
     assert recent_values(y) == [0, 2, 4]
-    x.extend(range(3, 5, 1))
+    x.extend(list(range(3, 5, 1)))
     assert recent_values(y) == [0, 2, 4, 6, 8]
     ymap = map_stream(function=double, in_stream=x)
     assert recent_values(ymap) == recent_values(y)
@@ -310,9 +310,9 @@ def test_element_agent():
     in_args = Stream('in_args')
     out_args = Stream('out_args')
     a_args = element_map_agent(f_args, in_args, out_args, None, None, 'a_args', 2, 10)
-    in_args.extend(range(3))
+    in_args.extend(list(range(3)))
     assert recent_values(out_args) == [10, 12, 14]
-    in_args.extend(range(3, 5, 1))
+    in_args.extend(list(range(3, 5, 1)))
     assert recent_values(out_args) == [10, 12, 14, 16, 18]
     args_map = map_stream(f_args, in_args, None, 2, 10)
 
@@ -324,9 +324,9 @@ def test_element_agent():
                                     out_stream=out_kwargs, name='a_args',
                                     multiplicand=2, addition=10)
 
-    in_kwargs.extend(range(3))
+    in_kwargs.extend(list(range(3)))
     assert recent_values(out_kwargs) == [10, 12, 14]
-    in_kwargs.extend(range(3, 5, 1))
+    in_kwargs.extend(list(range(3, 5, 1)))
     assert recent_values(out_kwargs) == [10, 12, 14, 16, 18]
 
     # Test element_map_agent with state and kwargs

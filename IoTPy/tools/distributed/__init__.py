@@ -1,2 +1,2 @@
-from source import source
-from sink import sink
+from .source import source
+from .sink import sink

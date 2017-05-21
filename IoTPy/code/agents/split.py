@@ -337,7 +337,7 @@ def test_element_agents():
     assert recent_values(r_args) == recent_values(r)
     assert recent_values(t_args) == recent_values(t)
 
-    in_stream_split.extend(range(5))
+    in_stream_split.extend(list(range(5)))
     assert recent_values(r) == [1, 2, 3, 4, 5]
     assert recent_values(t) == [0, 2, 4, 6, 8]
     assert recent_values(r_split) == recent_values(r)
@@ -371,7 +371,7 @@ def test_element_agents():
     tt = Stream('tt')
     ee = element_split_agent(func=f_list, in_stream=x, out_streams=[rr, tt], name='ee',
                              list_of_functions=[f_0, f_1])
-    x.extend(range(5))
+    x.extend(list(range(5)))
     assert recent_values(rr) == [0, 2, 4, 6, 8]
     assert recent_values(tt) == [10, 11, 12, 13, 14]
 
@@ -392,7 +392,7 @@ def test_element_agents():
     assert r_state.recent[:r_state.stop] == []
     assert t_state.recent[:t_state.stop] == []
 
-    in_stream_split_state.extend(range(5))
+    in_stream_split_state.extend(list(range(5)))
     assert r_state.recent[:r_state.stop] == [0, 2, 4, 6, 8]
     assert t_state.recent[:t_state.stop] == [0, 1, 4, 9, 16]
 
@@ -423,7 +423,7 @@ def test_element_agents():
     assert rr_state.stop == 0
     assert tt_state.stop == 0
 
-    in_stream_split_state_funcargs.extend(range(5))
+    in_stream_split_state_funcargs.extend(list(range(5)))
     assert rr_state.recent[:rr_state.stop] == [0, 11, 22, 33, 44]
     assert tt_state.recent[:tt_state.stop] == [0, 10, 40, 90, 160]
 

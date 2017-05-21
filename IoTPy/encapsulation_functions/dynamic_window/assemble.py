@@ -1,4 +1,4 @@
-from make_part_from_dynamic_window import make_part_from_dynamic_window
+from .make_part_from_dynamic_window import make_part_from_dynamic_window
 
 
 def assemble(params):

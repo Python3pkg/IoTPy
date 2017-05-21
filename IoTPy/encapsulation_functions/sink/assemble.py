@@ -1,4 +1,4 @@
-from make_part_from_sink import make_part_from_sink
+from .make_part_from_sink import make_part_from_sink
 
 
 def assemble(params):

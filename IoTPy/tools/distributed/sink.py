@@ -23,21 +23,21 @@ def addToQueue(value, exchange, channel, part_name, name, index=None):
 
     """
     if index is None:
-        print "Adding {0} to distributed queue for {1} for {2}".format(
-            value, part_name, name)
+        print("Adding {0} to distributed queue for {1} for {2}".format(
+            value, part_name, name))
         body = jsonpickle.encode([name, value])
-        print "Exchange: " + exchange
-        print "Routing key: " + part_name
+        print("Exchange: " + exchange)
+        print("Routing key: " + part_name)
         channel.basic_publish(
             exchange=exchange,
             routing_key=part_name,
             body=body)
     else:
-        print "Adding {0} to distributed queue for {1} for {2},{3}".format(
-            value, part_name, name, index)
+        print("Adding {0} to distributed queue for {1} for {2},{3}".format(
+            value, part_name, name, index))
         body = jsonpickle.encode([name, index, value])
-        print "Exchange: " + exchange
-        print "Routing key: " + part_name
+        print("Exchange: " + exchange)
+        print("Routing key: " + part_name)
         channel.basic_publish(
             exchange=exchange,
             routing_key=part_name,

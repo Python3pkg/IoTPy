@@ -83,7 +83,7 @@ class KMeansStream:
             error = evaluate_error(x, centroids, index)
 
             if self.output:
-                print "Error: ", error
+                print("Error: ", error)
 
             model.sum_iterations += i
             model.sum_error += error
@@ -94,8 +94,8 @@ class KMeansStream:
             self.avg_iterations = float(model.sum_iterations) / float(model.i)
             self.avg_error = float(model.sum_error) / float(model.i)
             if self.output:
-                print "Average number of iterations: ", self.avg_iterations
-                print "Average error: ", self.avg_error, "\n"
+                print("Average number of iterations: ", self.avg_iterations)
+                print("Average error: ", self.avg_error, "\n")
             return findClosestCentroids(np.array(x).reshape(1, len(x)),
                                         model.centroids)
 

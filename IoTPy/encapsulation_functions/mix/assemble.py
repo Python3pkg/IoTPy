@@ -1,4 +1,4 @@
-from make_part_from_mix import make_part_from_mix
+from .make_part_from_mix import make_part_from_mix
 
 
 def assemble(params):

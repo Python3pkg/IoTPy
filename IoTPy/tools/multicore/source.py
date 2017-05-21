@@ -12,8 +12,8 @@ def source(queue, dict_parts):
     """
     while True:
         value = queue.get()
-        print "Received"
-        print value
+        print("Received")
+        print(value)
 
         # No index
         if len(value) == 2:

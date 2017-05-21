@@ -76,7 +76,7 @@ def element_merge_agent(func, in_streams, out_stream, state=None,
         # input_snapshots is a list of snapshots.
         # Each snapshot is a list containing one element for each
         # input stream.
-        input_snapshots = zip(*[v.list[v.start:v.stop] for v in in_lists])
+        input_snapshots = list(zip(*[v.list[v.start:v.stop] for v in in_lists]))
         # If the new input data is empty then return empty lists for
         # each output stream, and leave the state and the starting point
         # for each input stream unchanged.
@@ -323,7 +323,7 @@ def element_many_agent(func, in_streams, out_streams, state=None,
         # input stream.
         # The j-th snapshot in input_snapshots is the snapshot at the j-th
         # time slice in this list of the input streams.
-        input_snapshots = zip(*[v.list[v.start:v.stop] for v in in_lists])
+        input_snapshots = list(zip(*[v.list[v.start:v.stop] for v in in_lists]))
         # If the new input data is empty then return empty lists for
         # each output stream, and leave the state and the starting point
         # for each input stream unchanged.
@@ -416,7 +416,7 @@ def tests():
         func=fff, in_streams=[x,u], out_stream=sss, name='ddd', f=hhh,
         addend=10)
 
-    x.extend(range(3))
+    x.extend(list(range(3)))
     u.extend([10, 15, 18])
     assert recent_values(s) == [10, 16, 20]
     assert recent_values(zip_map_g_args) == [2*v for v in recent_values(s)]
@@ -427,7 +427,7 @@ def tests():
     assert recent_values(zip_map_xu) == s.recent[:s.stop]
 
     u.append(37)
-    x.extend(range(3, 5, 1))
+    x.extend(list(range(3, 5, 1)))
     assert recent_values(s) == [10, 16, 20, 40]
     assert recent_values(zip_map_g_args) == [2*v for v in recent_values(s)]
     assert recent_values(zipxu) == [(0, 10), (1, 15), (2, 18), (3, 37)]
@@ -488,11 +488,11 @@ def tests():
     assert recent_values(z) == [2]
     assert recent_values(blend_z) == recent_values(z)
     assert recent_values(blend_add_z) == [v+10 for v in recent_values(z)]
-    x.extend(range(2,4))
+    x.extend(list(range(2,4)))
     assert recent_values(z) == [2, 4, 6]
     assert recent_values(blend_z) == recent_values(z)
     assert recent_values(blend_add_z) == [v+10 for v in recent_values(z)]
-    y.extend(range(100, 102))
+    y.extend(list(range(100, 102)))
     assert recent_values(z) == [2, 4, 6, 200, 202]
     assert recent_values(blend_z) == recent_values(z)
     assert recent_values(blend_add_z) == [v+10 for v in recent_values(z)]
@@ -514,8 +514,8 @@ def tests():
     many_agent = element_many_agent(
         func=f_many, in_streams=[u_stream, v_stream], out_streams=[w_stream, x_stream],
         name='many_agent')
-    u_stream.extend(range(5))
-    v_stream.extend(range(0, 40, 4))
+    u_stream.extend(list(range(5)))
+    v_stream.extend(list(range(0, 40, 4)))
     assert recent_values(w_stream) == [0, 5, 10, 15, 20]
     assert recent_values(x_stream) == [1, 6, 11, 16, 21]
     ww_stream, xx_stream = merge_split(
@@ -551,8 +551,8 @@ def tests():
             recent_values(x_args_kwargs_stream))
         
     
-    u_args_kwargs_stream.extend(range(5))
-    v_args_kwargs_stream.extend(range(0, 40, 4))
+    u_args_kwargs_stream.extend(list(range(5)))
+    v_args_kwargs_stream.extend(list(range(0, 40, 4)))
     assert recent_values(w_args_kwargs_stream) == [0, 10, 20, 30, 40] 
     assert recent_values(x_args_kwargs_stream) == [10, 15, 20, 25, 30]
     assert (recent_values(ww_args_kwargs_stream) ==
@@ -561,7 +561,7 @@ def tests():
             recent_values(x_args_kwargs_stream))
 
     u_args_kwargs_stream.append(100)
-    v_args_kwargs_stream.extend(range(40, 80, 4))
+    v_args_kwargs_stream.extend(list(range(40, 80, 4)))
     assert recent_values(w_args_kwargs_stream) == \
       [0, 10, 20, 30, 40, 240]
     assert recent_values(x_args_kwargs_stream) == \

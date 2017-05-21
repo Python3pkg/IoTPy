@@ -4,7 +4,7 @@ import os
 from ..agent import Agent, InList
 from ..stream import Stream, StreamArray
 from ..stream import _no_value, _multivalue, _close
-from element_agent import element_map_agent
+from .element_agent import element_map_agent
 import types
 import inspect
 import random

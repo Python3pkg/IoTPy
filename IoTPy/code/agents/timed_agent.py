@@ -57,7 +57,7 @@ def timed_zip_agent(in_streams, out_stream, call_streams=None, name=None):
                           agent_name=name, parameter_name='call_streams')
 
     num_in_streams = len(in_streams)
-    indices = range(num_in_streams)
+    indices = list(range(num_in_streams))
 
     # The transition function for this agent.
     def transition(in_lists, state):

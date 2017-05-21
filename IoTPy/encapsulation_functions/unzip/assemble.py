@@ -1,4 +1,4 @@
-from make_part_from_unzip import make_part_from_unzip
+from .make_part_from_unzip import make_part_from_unzip
 
 
 def assemble(params):

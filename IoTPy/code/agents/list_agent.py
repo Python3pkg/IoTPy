@@ -482,9 +482,9 @@ def test_list_agents():
     def simple(lst):
         return [2*v for v in lst]
     a = list_map_agent(func=simple, in_stream=x, out_stream=y, name='a')
-    x.extend(range(5))
+    x.extend(list(range(5)))
     assert x.stop == 5
-    assert x.recent[:5] == range(5)
+    assert x.recent[:5] == list(range(5))
     assert y.stop == 5
     assert y.recent[:5] == [0, 2, 4, 6, 8]
 
@@ -513,7 +513,7 @@ def test_list_agents():
     # Check sink
     def p(input_list):
         for v in input_list:
-            print v
+            print(v)
     #sink_agent = list_sink_agent(func=p, in_stream=x, name='sink_agent')
 
     # Check sink with state
@@ -567,12 +567,12 @@ def test_list_agents():
         func=h_state, in_stream=x_state, out_streams=[r_state, t_state], name='e_state', state=0)
     assert r_state.stop == 0
     assert t_state.stop == 0
-    x_state.extend(range(5))
+    x_state.extend(list(range(5)))
     assert r_state.stop == 5
     assert r_state.recent[:r_state.stop] == [0, 2, 4, 6, 8]
     assert t_state.stop == 5
     assert t_state.recent[:5] == [0, 1, 4, 9, 16]
-    x_state.extend(range(5,10,1))
+    x_state.extend(list(range(5,10,1)))
     assert r_state.stop == 10
     assert r_state.recent[:r_state.stop] == [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
     assert t_state.stop == 10
@@ -580,7 +580,7 @@ def test_list_agents():
 
     # Check many
     def f_many(list_of_lists):
-        snapshots = zip(*list_of_lists)
+        snapshots = list(zip(*list_of_lists))
         return [[max(snapshot) for snapshot in snapshots],
                 [min(snapshot) for snapshot in snapshots]]
     u_stream = Stream(name='u_stream')
@@ -1052,7 +1052,7 @@ def test_list_agents():
     assert out_stream_map_kwargs_stream.recent[:out_stream_map_kwargs_stream.stop] == \
       []
 
-    in_stream_map_args_stream.extend(range(5))
+    in_stream_map_args_stream.extend(list(range(5)))
     assert out_stream_map_args_stream.recent[:out_stream_map_args_stream.stop] == \
       [0, 2, 4, 6, 8]
     assert out_stream_map_kwargs_stream.recent[:out_stream_map_kwargs_stream.stop] == \

@@ -19,12 +19,12 @@ def addToQueue(value, queue, part_name, name, index=None):
 
     """
     if index is None:
-        print "Adding {0} to queue for {1} for {2}".format(
-            value, part_name, name)
+        print("Adding {0} to queue for {1} for {2}".format(
+            value, part_name, name))
         queue.put([name, value])
     else:
-        print "Adding {0} to queue for {1} for {2},{3}".format(
-            value, part_name, name, index)
+        print("Adding {0} to queue for {1} for {2},{3}".format(
+            value, part_name, name, index))
         queue.put([name, index, value])
 
 

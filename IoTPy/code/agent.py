@@ -4,7 +4,7 @@ PythonStreams.
 
 """
 
-from stream import Stream, StreamArray
+from .stream import Stream, StreamArray
 from collections import namedtuple
 import numpy as np
 
@@ -171,7 +171,7 @@ class Agent(Blackbox):
         # even though the agent's call_streams may be empty, the agent
         # executes a state transition when the agent is created.
         if call_streams is None:
-            self.next()
+            next(self)
 
     def next(self, stream_name=None):
         """Execute the next state transition.
@@ -291,18 +291,18 @@ def main():
               transition=copy,
               name='A')
     
-    input_stream_0.extend(range(10))
+    input_stream_0.extend(list(range(10)))
     assert(output_stream_0.stop == 10)
     assert(output_stream_1.stop == 0)
-    assert(output_stream_0.recent[:10] == range(10))
+    assert(output_stream_0.recent[:10] == list(range(10)))
     assert(input_stream_0.start == {A:10})
     assert(input_stream_1.start == {A:0})
 
-    input_stream_1.extend(range(10, 25, 1))
+    input_stream_1.extend(list(range(10, 25, 1)))
     assert(output_stream_0.stop == 10)
     assert(output_stream_1.stop == 15)
-    assert(output_stream_0.recent[:10] == range(10))
-    assert(output_stream_1.recent[:15] == range(10, 25, 1))
+    assert(output_stream_0.recent[:10] == list(range(10)))
+    assert(output_stream_1.recent[:15] == list(range(10, 25, 1)))
     assert(input_stream_0.start == {A:10})
     assert(input_stream_1.start == {A:15})
 

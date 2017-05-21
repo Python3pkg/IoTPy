@@ -203,7 +203,7 @@ def function_to_stream(function, time_interval=0, stream_length=None,
                 output_increment, state = function(
                     state, *args, **kwargs) 
             except:
-                print 'run_finite_stateful exception'
+                print('run_finite_stateful exception')
                 break
             out_stream.append(output_increment)
             time.sleep(time_interval)
@@ -485,9 +485,9 @@ def test():
         clock_ticks, 0.001, 16, 0, max_value=4)
     clock_thread.start()
     clock_thread.join()
-    rrrr = range(4)
+    rrrr = list(range(4))
     for _ in range(3):
-        rrrr.extend(range(4))
+        rrrr.extend(list(range(4)))
     assert recent_values(clock) == rrrr
 
     # Test file_to_stream
@@ -499,7 +499,7 @@ def test():
         function=int, filename='test_file.txt', time_interval=0.01)
     file_thread.start()
     file_thread.join()
-    assert recent_values(file_stream) == range(mm)
+    assert recent_values(file_stream) == list(range(mm))
     with open('test_file.txt', 'w'): pass
 
     def f(v, addend): return int(v)+addend
@@ -518,15 +518,15 @@ def test():
 
     # Test list_to_stream
     list_thread, list_stream = list_to_stream(
-        function=f, in_list=range(mm), time_interval=0.01,
+        function=f, in_list=list(range(mm)), time_interval=0.01,
         addend=add_constant)
     list_thread.start()
     list_thread.join()
     assert recent_values(file_addend_stream) == recent_values(list_stream)
 
     # Test queue_to_stream
-    import Queue
-    queue = Queue.Queue()
+    import queue
+    queue = queue.Queue()
     for i in range(mm):
         queue.put(i)
     queue.put('stop')
